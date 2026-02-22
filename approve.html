@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quote Approval</title>
+</head>
+<body>
+<h2>Processing your response...</h2>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const token = params.get("token");
+const action = params.get("type");
+
+fetch("https://www.zohoapis.com/crm/v2/functions/quote_approval/actions/execute?auth_type=apikey&zapikey=YOUR_FUNCTION_KEY", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    token: token,
+    action: action
+  })
+})
+.then(() => {
+  document.body.innerHTML =
+    "<h2>Thank you! Your response has been recorded.</h2>";
+})
+.catch(() => {
+  document.body.innerHTML =
+    "<h2>Something went wrong. Please try again.</h2>";
+});
+</script>
+</body>
+</html>
